@@ -1,0 +1,146 @@
+[
+  {
+    "ticket_id": "TICK-01",
+    "subject": "App crashes on login",
+    "body": "Every time I log in the app crashes immediately.",
+    "customer_id": "CUST-001",
+    "order_id": null,
+    "expected_category": "technical",
+    "expected_severity": "medium"
+  },
+  {
+    "ticket_id": "TICK-02",
+    "subject": "Refund request for duplicate order",
+    "body": "I was charged twice for the same order, please refund the extra charge.",
+    "customer_id": "CUST-002",
+    "order_id": "ORD-1003",
+    "expected_category": "billing",
+    "expected_severity": "high"
+  },
+  {
+    "ticket_id": "TICK-03",
+    "subject": "Want to cancel my subscription",
+    "body": "Please cancel my plan at the end of this billing period.",
+    "customer_id": "CUST-003",
+    "order_id": null,
+    "expected_category": "account",
+    "expected_severity": "low"
+  },
+  {
+    "ticket_id": "TICK-04",
+    "subject": "How do I upgrade to pro?",
+    "body": "I'd like to upgrade my plan to the pro tier.",
+    "customer_id": "CUST-004",
+    "order_id": null,
+    "expected_category": "account",
+    "expected_severity": "low"
+  },
+  {
+    "ticket_id": "TICK-05",
+    "subject": "Unauthorized charge on my card",
+    "body": "There is an unauthorized charge on my statement, this looks like fraud.",
+    "customer_id": "CUST-005",
+    "order_id": "ORD-1006",
+    "expected_category": "billing",
+    "expected_severity": "high"
+  },
+  {
+    "ticket_id": "TICK-06",
+    "subject": "App is not working after update",
+    "body": "Since the last update the app is not working at all.",
+    "customer_id": "CUST-006",
+    "order_id": null,
+    "expected_category": "technical",
+    "expected_severity": "medium"
+  },
+  {
+    "ticket_id": "TICK-07",
+    "subject": "Downgrade my enterprise plan",
+    "body": "We'd like to downgrade from enterprise to pro next cycle.",
+    "customer_id": "CUST-007",
+    "order_id": null,
+    "expected_category": "account",
+    "expected_severity": "low"
+  },
+  {
+    "ticket_id": "TICK-08",
+    "subject": "Payment error during checkout",
+    "body": "I get an error every time I try to complete checkout.",
+    "customer_id": "CUST-008",
+    "order_id": "ORD-1009",
+    "expected_category": "technical",
+    "expected_severity": "medium"
+  },
+  {
+    "ticket_id": "TICK-09",
+    "subject": "Fraudulent transaction alert",
+    "body": "This charge is unauthorized and I believe it is fraud.",
+    "customer_id": "CUST-009",
+    "order_id": null,
+    "expected_category": "billing",
+    "expected_severity": "high"
+  },
+  {
+    "ticket_id": "TICK-10",
+    "subject": "General question about features",
+    "body": "Does the product support exporting data to CSV?",
+    "customer_id": "CUST-010",
+    "order_id": null,
+    "expected_category": "general",
+    "expected_severity": "low"
+  },
+  {
+    "ticket_id": "TICK-11",
+    "subject": "Sync feature is broken",
+    "body": "My data sync between devices is broken and nothing updates.",
+    "customer_id": "CUST-011",
+    "order_id": null,
+    "expected_category": "technical",
+    "expected_severity": "medium"
+  },
+  {
+    "ticket_id": "TICK-12",
+    "subject": "Service is down right now",
+    "body": "The whole service seems to be down for our team.",
+    "customer_id": "CUST-012",
+    "order_id": null,
+    "expected_category": "technical",
+    "expected_severity": "medium"
+  },
+  {
+    "ticket_id": "TICK-13",
+    "subject": "Need refund for cancelled order",
+    "body": "My order was cancelled, please issue a refund.",
+    "customer_id": "CUST-013",
+    "order_id": "ORD-1014",
+    "expected_category": "billing",
+    "expected_severity": "high"
+  },
+  {
+    "ticket_id": "TICK-14",
+    "subject": "Change my plan from free to pro",
+    "body": "I want to upgrade my current plan to pro.",
+    "customer_id": "CUST-014",
+    "order_id": null,
+    "expected_category": "account",
+    "expected_severity": "low"
+  },
+  {
+    "ticket_id": "TICK-15",
+    "subject": "App crash when exporting data",
+    "body": "The app crashes every time I try to export my data.",
+    "customer_id": "CUST-015",
+    "order_id": null,
+    "expected_category": "technical",
+    "expected_severity": "medium"
+  },
+  {
+    "ticket_id": "TICK-16",
+    "subject": "Thanks for the quick response",
+    "body": "Just wanted to say thanks, no further action needed.",
+    "customer_id": "CUST-001",
+    "order_id": null,
+    "expected_category": "general",
+    "expected_severity": "low"
+  }
+]

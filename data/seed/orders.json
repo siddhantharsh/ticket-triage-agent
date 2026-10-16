@@ -1,0 +1,20 @@
+[
+  {"order_id": "ORD-1001", "customer_id": "CUST-001", "status": "delivered", "amount_usd": 49.99},
+  {"order_id": "ORD-1002", "customer_id": "CUST-001", "status": "shipped", "amount_usd": 19.99},
+  {"order_id": "ORD-1003", "customer_id": "CUST-002", "status": "pending", "amount_usd": 9.99},
+  {"order_id": "ORD-1004", "customer_id": "CUST-003", "status": "delivered", "amount_usd": 299.00},
+  {"order_id": "ORD-1005", "customer_id": "CUST-004", "status": "cancelled", "amount_usd": 59.99},
+  {"order_id": "ORD-1006", "customer_id": "CUST-005", "status": "refunded", "amount_usd": 14.99},
+  {"order_id": "ORD-1007", "customer_id": "CUST-006", "status": "delivered", "amount_usd": 79.99},
+  {"order_id": "ORD-1008", "customer_id": "CUST-007", "status": "shipped", "amount_usd": 499.00},
+  {"order_id": "ORD-1009", "customer_id": "CUST-008", "status": "pending", "amount_usd": 9.99},
+  {"order_id": "ORD-1010", "customer_id": "CUST-009", "status": "delivered", "amount_usd": 39.99},
+  {"order_id": "ORD-1011", "customer_id": "CUST-010", "status": "refunded", "amount_usd": 9.99},
+  {"order_id": "ORD-1012", "customer_id": "CUST-011", "status": "delivered", "amount_usd": 999.00},
+  {"order_id": "ORD-1013", "customer_id": "CUST-012", "status": "cancelled", "amount_usd": 29.99},
+  {"order_id": "ORD-1014", "customer_id": "CUST-013", "status": "pending", "amount_usd": 9.99},
+  {"order_id": "ORD-1015", "customer_id": "CUST-014", "status": "shipped", "amount_usd": 59.99},
+  {"order_id": "ORD-1016", "customer_id": "CUST-015", "status": "delivered", "amount_usd": 599.00},
+  {"order_id": "ORD-1017", "customer_id": "CUST-002", "status": "refunded", "amount_usd": 9.99},
+  {"order_id": "ORD-1018", "customer_id": "CUST-006", "status": "pending", "amount_usd": 19.99}
+]

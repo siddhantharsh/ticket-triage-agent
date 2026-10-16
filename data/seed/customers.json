@@ -1,0 +1,17 @@
+[
+  {"customer_id": "CUST-001", "name": "Ava Thornton", "plan_tier": "pro"},
+  {"customer_id": "CUST-002", "name": "Liam Chen", "plan_tier": "free"},
+  {"customer_id": "CUST-003", "name": "Sofia Martinez", "plan_tier": "enterprise"},
+  {"customer_id": "CUST-004", "name": "Noah Okafor", "plan_tier": "pro"},
+  {"customer_id": "CUST-005", "name": "Mia Larsson", "plan_tier": "free"},
+  {"customer_id": "CUST-006", "name": "Ethan Novak", "plan_tier": "pro"},
+  {"customer_id": "CUST-007", "name": "Isabella Rossi", "plan_tier": "enterprise"},
+  {"customer_id": "CUST-008", "name": "Lucas Dubois", "plan_tier": "free"},
+  {"customer_id": "CUST-009", "name": "Amara Diallo", "plan_tier": "pro"},
+  {"customer_id": "CUST-010", "name": "Oliver Kowalski", "plan_tier": "free"},
+  {"customer_id": "CUST-011", "name": "Priya Natarajan", "plan_tier": "enterprise"},
+  {"customer_id": "CUST-012", "name": "Mateo Fernandez", "plan_tier": "pro"},
+  {"customer_id": "CUST-013", "name": "Chloe Bergstrom", "plan_tier": "free"},
+  {"customer_id": "CUST-014", "name": "Daniel Osei", "plan_tier": "pro"},
+  {"customer_id": "CUST-015", "name": "Yuki Tanaka", "plan_tier": "enterprise"}
+]
