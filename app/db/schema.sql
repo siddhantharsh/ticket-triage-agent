@@ -10,3 +10,16 @@ CREATE TABLE IF NOT EXISTS orders (
     status TEXT NOT NULL CHECK (status IN ('pending', 'shipped', 'delivered', 'cancelled', 'refunded')),
     amount_usd REAL NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS triage_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticket_id TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    category TEXT,
+    severity TEXT,
+    confidence REAL,
+    decision TEXT NOT NULL CHECK (decision IN ('auto_resolved', 'escalated')),
+    escalation_reason TEXT,
+    resolution_source TEXT NOT NULL CHECK (resolution_source IN ('RAG', 'SQL', 'none')),
+    latency_ms REAL NOT NULL
+);

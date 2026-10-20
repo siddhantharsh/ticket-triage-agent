@@ -1,6 +1,7 @@
 import json
 import os
 import re
+import zlib
 from functools import lru_cache
 
 import boto3
@@ -38,16 +39,40 @@ def _invoke_claude(system_prompt: str, user_prompt: str, max_tokens: int = 512) 
     return payload["content"][0]["text"]
 
 
+def _mock_confidence(text: str, base: float, spread: float) -> float:
+    # Deterministic per-text jitter so mock confidence is not a handful of constants.
+    unit = (zlib.crc32(text.encode()) % 1000) / 999
+    return round(max(0.0, min(1.0, base + (unit * 2 - 1) * spread)), 2)
+
+
 def _mock_classify(subject: str, body: str) -> dict:
     text = f"{subject} {body}".lower()
 
     if any(w in text for w in ("refund", "charged twice", "unauthorized", "fraud")):
         return {"category": "billing", "severity": "high", "confidence": 0.55}
+    if any(w in text for w in ("breach", "hacked", "phishing", "outage")):
+        return {
+            "category": "technical",
+            "severity": "high",
+            "confidence": _mock_confidence(text, 0.7, 0.1),
+        }
     if any(w in text for w in ("cancel", "downgrade", "upgrade", "plan")):
-        return {"category": "account", "severity": "low", "confidence": 0.85}
+        return {
+            "category": "account",
+            "severity": "low",
+            "confidence": _mock_confidence(text, 0.85, 0.1),
+        }
     if any(w in text for w in ("broken", "crash", "error", "not working", "down ")):
-        return {"category": "technical", "severity": "medium", "confidence": 0.8}
-    return {"category": "general", "severity": "low", "confidence": 0.7}
+        return {
+            "category": "technical",
+            "severity": "medium",
+            "confidence": _mock_confidence(text, 0.8, 0.1),
+        }
+    return {
+        "category": "general",
+        "severity": "low",
+        "confidence": _mock_confidence(text, 0.7, 0.15),
+    }
 
 
 def _classify_via_bedrock(subject: str, body: str) -> dict:

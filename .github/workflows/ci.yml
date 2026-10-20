@@ -34,3 +34,34 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t ticket-triage-agent:ci .
+
+  analytics-csv:
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Build KB index
+        run: python scripts/build_index.py
+
+      - name: Generate synthetic mock-mode triage data
+        env:
+          MOCK_BEDROCK: "true"
+        run: |
+          python scripts/generate_demo_tickets.py
+          python scripts/export_triage_csv.py
+
+      - name: Upload triage CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: triage-results-csv
+          path: data/triage_results.csv

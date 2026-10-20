@@ -50,6 +50,8 @@ data/
 scripts/
   seed_db.py    Builds data/tickets.db from data/seed/*.json
   build_index.py Builds the Chroma index from data/kb/*.md
+  generate_demo_tickets.py  Synthetic tickets -> real pipeline (mock mode) -> triage_log
+  export_triage_csv.py      Flattens triage_log into data/triage_results.csv
 tests/          Pytest suite (classify, SQL tool, end-to-end /triage)
 ```
 
@@ -123,6 +125,63 @@ pytest -v
 Tests never call real Bedrock — the end-to-end test monkeypatches
 `app.llm.bedrock_client` so classification and resolution generation are
 deterministic.
+
+## Analytics dashboard
+
+Every `POST /triage` call appends one row to the `triage_log` table in the SQLite
+database. The rows can be exported to a flat CSV and explored in a Tableau Public
+dashboard.
+
+**All data in the dashboard is synthetic.** It is produced by
+`scripts/generate_demo_tickets.py`, which invents about 500 fake tickets and runs them
+through the real pipeline with `MOCK_BEDROCK=true`. The classifier and resolution
+text are deterministic local stand-ins, not Claude. It is not real customer data and
+it says nothing about how a real model would perform. The script refuses to run
+unless mock mode is on.
+
+### Schema
+
+`triage_log` (SQLite) and `data/triage_results.csv` share these columns:
+
+| Column | Description |
+| --- | --- |
+| `ticket_id` | Ticket identifier (`SYN-0001` and so on for demo data) |
+| `created_at` | UTC timestamp, ISO 8601 (`2026-08-21T07:08:47Z` in the CSV) |
+| `category` | `billing`, `technical`, `account` or `general` |
+| `severity` | `low`, `medium` or `high` |
+| `confidence` | Classifier confidence, 0 to 1 |
+| `decision` | `auto_resolved` or `escalated` |
+| `escalation_reason` | `high_severity` or `low_confidence` when escalated, else `none` in the CSV (NULL in SQLite) |
+| `resolution_source` | `RAG` if KB snippets were retrieved, else `SQL` if a customer record was found, else `none`. Always `none` when escalated |
+| `latency_ms` | Wall-clock time of the graph run on the machine that generated the data |
+
+The CSV adds two helper columns: `created_date` (`YYYY-MM-DD`, handy for per-day
+charts) and `data_source` (always `synthetic_mock`).
+
+### Regenerate the data
+
+```bash
+python scripts/seed_db.py           # optional, the generator seeds its own database
+python scripts/build_index.py       # needed once so the RAG tool has a KB index
+python scripts/generate_demo_tickets.py   # writes data/demo_triage.db (gitignored)
+python scripts/export_triage_csv.py       # writes data/triage_results.csv
+```
+
+Options: `--count`, `--seed` (default 42), `--end-date YYYY-MM-DD` (last day of the
+60 day window, default today UTC) and `--db`. Ticket content, timestamps and
+decisions are reproducible for a given seed and end date. `latency_ms` is measured,
+so it varies between runs. The committed CSV was generated with `--end-date 2026-10-20`.
+CI regenerates the CSV on every run and uploads it as the `triage-results-csv`
+build artifact.
+
+### Dashboard
+
+Step-by-step build instructions: [docs/TABLEAU_GUIDE.md](docs/TABLEAU_GUIDE.md).
+
+- Tableau Public link: _TODO, add after publishing_
+- Screenshot: `docs/dashboard.png` _(TODO, add after publishing)_
+
+<!-- After adding the screenshot: ![Dashboard screenshot](docs/dashboard.png) -->
 
 ## Docker
 
