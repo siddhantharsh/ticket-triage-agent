@@ -1,0 +1,15 @@
+{
+  "mode": "mock",
+  "max_drop": 0.01,
+  "dataset_sha256": "a443f6041da5155a92b7fc78fa3e8e67c1346c05af1b0eca570a3bacdfa009a2",
+  "n_cases": 81,
+  "metrics": {
+    "category_accuracy": 0.5555555555555556,
+    "severity_accuracy": 0.7037037037037037,
+    "escalation_recall": 0.48484848484848486,
+    "escalation_precision": 0.64
+  },
+  "updated_at": "2026-10-26T18:15:49+00:00",
+  "git_commit": "30189ce",
+  "reason": "Initial baseline on the 81-case golden set"
+}

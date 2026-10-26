@@ -19,8 +19,6 @@ from pathlib import Path
 
 from evals.metrics import by_tag, latency_summary, summarize, usage_summary
 
-os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
-
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GOLDEN = ROOT / "data" / "evals" / "golden.jsonl"
 DEFAULT_REPORT_DIR = ROOT / "evals" / "reports"

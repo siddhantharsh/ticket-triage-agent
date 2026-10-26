@@ -35,6 +35,36 @@ jobs:
       - name: Build Docker image
         run: docker build -t ticket-triage-agent:ci .
 
+  eval-gate:
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Build KB index
+        run: python scripts/build_index.py
+
+      - name: Regression gate (MOCK golden-set eval vs baseline)
+        env:
+          MOCK_BEDROCK: "true"
+        run: python -m evals.check_regression
+
+      - name: Upload eval report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: evals/reports/
+
   analytics-csv:
     runs-on: ubuntu-latest
     needs: lint-and-test
