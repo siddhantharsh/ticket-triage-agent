@@ -2,6 +2,8 @@ import json
 import os
 import re
 import zlib
+from contextlib import contextmanager
+from contextvars import ContextVar
 from functools import lru_cache
 
 import boto3
@@ -14,6 +16,20 @@ MOCK_BEDROCK = os.environ.get("MOCK_BEDROCK", "true").lower() in ("1", "true", "
 
 CLASSIFY_CATEGORIES = ("billing", "technical", "account", "general")
 CLASSIFY_SEVERITIES = ("low", "medium", "high")
+
+
+_usage_sink: ContextVar[list | None] = ContextVar("bedrock_usage_sink", default=None)
+
+
+@contextmanager
+def track_usage():
+    """Collect {input_tokens, output_tokens} for every model call made inside the block."""
+    sink: list[dict] = []
+    token = _usage_sink.set(sink)
+    try:
+        yield sink
+    finally:
+        _usage_sink.reset(token)
 
 
 @lru_cache(maxsize=1)
@@ -36,6 +52,15 @@ def _invoke_claude(system_prompt: str, user_prompt: str, max_tokens: int = 512) 
         accept="application/json",
     )
     payload = json.loads(response["body"].read())
+    sink = _usage_sink.get()
+    if sink is not None:
+        usage = payload.get("usage") or {}
+        sink.append(
+            {
+                "input_tokens": int(usage.get("input_tokens", 0)),
+                "output_tokens": int(usage.get("output_tokens", 0)),
+            }
+        )
     return payload["content"][0]["text"]
 
 

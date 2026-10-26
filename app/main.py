@@ -12,8 +12,8 @@ app = FastAPI(title="Support Ticket Triage & Resolution Agent")
 logger = logging.getLogger(__name__)
 
 
-def run_triage(request: TriageRequest, created_at: datetime | None = None) -> TriageResponse:
-    initial_state = {
+def build_initial_state(request: TriageRequest) -> dict:
+    return {
         "ticket_id": request.ticket_id,
         "subject": request.subject,
         "body": request.body,
@@ -29,6 +29,10 @@ def run_triage(request: TriageRequest, created_at: datetime | None = None) -> Tr
         "escalation_reason": None,
         "audit_trail": [],
     }
+
+
+def run_triage(request: TriageRequest, created_at: datetime | None = None) -> TriageResponse:
+    initial_state = build_initial_state(request)
 
     started = time.perf_counter()
     result = triage_graph.invoke(initial_state)
