@@ -34,9 +34,9 @@ Escalation triggers come from the knowledge base, not from the code:
 
 **Route** is `escalate` if the KB requires a human, if severity is `high`, or if the
 ticket contains nothing actionable (empty or meaningless text). Otherwise `decide`.
-Route is labelled independently of severity, so three cases are `low` or `medium`
-severity with route `escalate` (account deletion, a legal request, empty or meaningless
-text). The graph only escalates on severity `high` or confidence below 0.6, so these
+Route is labelled independently of severity, so five cases are `low` or `medium`
+severity with route `escalate`: account deletion and a legal request (`medium`), and
+the empty, whitespace-only and repeated-word tickets (`low`). The graph only escalates on severity `high` or confidence below 0.6, so these
 test a real gap rather than a labelling convention.
 
 ## Tags
